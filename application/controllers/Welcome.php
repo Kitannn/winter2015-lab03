@@ -10,27 +10,42 @@
  */
 class Welcome extends Application {
 
-    function __construct() {
+    function __construct() 
+    {
         parent::__construct();
     }
 
-    //-------------------------------------------------------------
-    //  The normal pages
-    //-------------------------------------------------------------
-
-    function index() {
-        $this->data['pagebody'] = 'homepage';    // this is the view we want shown
-        // build the list of authors, to pass on to our view
+    function index() 
+    {
+        $this->data['pagebody'] = 'homepage';    
         $source = $this->quotes->all();
+        
         $authors = array();
         foreach ($source as $record) {
             $authors[] = array('who' => $record['who'], 'mug' => $record['mug'], 'href' => $record['where']);
         }
         $this->data['authors'] = $authors;
-
+        
         $this->render();
     }
 
+    function shucks() 
+    {
+        $this->data['pagebody'] = 'justone'; 
+        $source = $this->quotes->get('2');
+     
+        $who = $source['who'];
+        $mug = $source['mug'];
+        $where = $source['where'];
+        $what = $source['what'];
+       
+        $this->data['who'] = $who;
+        $this->data['mug'] = $mug;
+        $this->data['href'] = $where;
+        $this->data['what'] = $what;
+        
+        $this->render();   
+    }
 }
 
 /* End of file Welcome.php */
